@@ -1,0 +1,47 @@
+AI Enablement Intern
+Travel Corporation India | Gurugram | Full Time
+
+About the Role
+We are seeking curious, hands-on, and technically exceptional AI Enablement Interns to support
+the integration of Artificial Intelligence capabilities into our existing in-house software systems.
+Selected interns will work directly with the Office of the President and Country Head, contributing
+to high-impact AI implementation initiatives and live business projects.
+
+Key Responsibilities
+- Integrate LLM capabilities (OpenAI GPT / Claude / Gemini) into existing enterprise software systems
+- Build and deploy RAG (Retrieval-Augmented Generation) pipelines for internal knowledge bases
+- Design and implement AI agents using frameworks such as LangChain, LlamaIndex, or CrewAI
+- Work with vector databases (Pinecone, Weaviate, FAISS, Qdrant) for semantic search features
+- Develop REST APIs using FastAPI or similar to expose AI features to business applications
+- Collaborate with the engineering team to automate repetitive business workflows using AI
+- Document AI systems, prompt designs, and integration guides for the broader team
+- Present technical findings and progress to senior leadership
+
+Required Skills
+- Proficiency in Python (primary language for all AI development)
+- Hands-on experience with LangChain, LlamaIndex, or similar agent frameworks
+- Demonstrated experience with RAG architectures and semantic search
+- Familiarity with OpenAI, Anthropic Claude, or Google Gemini APIs
+- Experience with vector databases: Pinecone, FAISS, Weaviate, or Qdrant
+- Understanding of REST APIs and software integration
+- Knowledge of prompt engineering and LLM application design
+- Git version control
+- Strong problem-solving and communication skills
+
+Preferred / Nice to Have
+- Familiarity with cloud platforms (AWS, Azure, GCP)
+- Experience with Docker and containerisation
+- Knowledge of MLflow, DVC, or other MLOps tools
+- Open-source contributions
+- Experience with FastAPI and production API deployment
+- HuggingFace Transformers experience
+
+Education
+Currently pursuing B.Tech (AI/ML specialisation) or M.Tech (AI/ML)
+
+Experience
+0-1 years (intern / fresher level; strong project portfolio can compensate)
+
+Stipend: INR 25,000/month
+Duration: 2-3 months (extendable based on performance)
+Location: Gurugram, Haryana
