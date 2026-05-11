@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HR Shortlist Report — {{ report.job_title }}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #0d0f14;
+    --surface: #161820;
+    --surface2: #1e2130;
+    --border: #2a2d3e;
+    --text: #e8eaf0;
+    --text-muted: #7b7f96;
+    --accent: #6c8ef7;
+    --accent-soft: rgba(108,142,247,0.12);
+    --green: #4ade80;
+    --yellow: #fbbf24;
+    --orange: #fb923c;
+    --red: #f87171;
+    --green-soft: rgba(74,222,128,0.12);
+    --yellow-soft: rgba(251,191,36,0.12);
+    --orange-soft: rgba(251,146,60,0.12);
+    --red-soft: rgba(248,113,113,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #161820 0%, #1a1d2e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .header-left h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .header-left .subtitle { color: var(--text-muted); font-size: 13px; }
+  .header-right { text-align: right; }
+  .header-right .meta { color: var(--text-muted); font-size: 12px; line-height: 1.9; }
+  .header-right .report-id {
+    font-family: 'DM Sans', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 6px;
+  }
+
+  /* ── Stats bar ── */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-card {
+    background: var(--surface);
+    padding: 20px 24px;
+    text-align: center;
+  }
+  .stat-card .value {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+  .stat-total   .value { color: #fff; }
+  .stat-hire    .value { color: var(--green); }
+  .stat-maybe   .value { color: var(--yellow); }
+  .stat-reject  .value { color: var(--red); }
+  .stat-fast    .value { color: var(--orange); }
+  .stat-cost    .value { color: var(--accent); font-size: 1.4rem; }
+
+  /* ── Main content ── */
+  .content { padding: 40px 60px; }
+
+  /* ── Section heading ── */
+  .section-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: #fff;
+    margin: 36px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Candidate card ── */
+  .candidate-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .candidate-card:hover { border-color: var(--accent); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    padding: 18px 24px;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .rank-badge {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; color: var(--text-muted);
+    flex-shrink: 0;
+  }
+  .rank-badge.top { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+
+  .card-name { flex: 1; }
+  .card-name h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 2px; }
+  .card-name .file { font-size: 11px; color: var(--text-muted); }
+
+  .total-score {
+    text-align: right;
+  }
+  .total-score .score-num {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .total-score .score-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
+
+  .recommendation-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+  }
+  .rec-strong  { background: var(--green-soft);  color: var(--green);  border: 1px solid rgba(74,222,128,0.3); }
+  .rec-hire    { background: var(--accent-soft);  color: var(--accent); border: 1px solid rgba(108,142,247,0.3); }
+  .rec-maybe   { background: var(--yellow-soft);  color: var(--yellow); border: 1px solid rgba(251,191,36,0.3); }
+  .rec-nohire  { background: var(--red-soft);     color: var(--red);    border: 1px solid rgba(248,113,113,0.3); }
+  .rec-fast    { background: var(--orange-soft);  color: var(--orange); border: 1px solid rgba(251,146,60,0.3); }
+
+  .color-strong { color: var(--green); }
+  .color-hire   { color: var(--accent); }
+  .color-maybe  { color: var(--yellow); }
+  .color-nohire { color: var(--red); }
+
+  /* ── Score grid inside card ── */
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .score-cell {
+    background: var(--surface2);
+    padding: 14px 16px;
+  }
+  .score-cell .dim-name {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .score-cell .dim-score {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+  .score-cell .dim-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+  .score-cell .dim-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+  .score-cell .dim-weight {
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  /* ── Card body (justifications, gaps, strengths) ── */
+  .card-body { padding: 20px 24px; }
+  .card-body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  .info-block h4 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .info-block ul { list-style: none; }
+  .info-block ul li {
+    font-size: 12px;
+    color: var(--text);
+    padding: 3px 0;
+    padding-left: 14px;
+    position: relative;
+  }
+  .info-block ul li::before {
+    content: '›';
+    position: absolute; left: 0;
+    color: var(--text-muted);
+  }
+  .info-block .strength li::before { color: var(--green); }
+  .info-block .gap li::before { color: var(--red); }
+
+  .justifications { grid-column: 1 / -1; margin-top: 4px; }
+  .just-row {
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .just-row:last-child { border-bottom: none; }
+  .just-dim {
+    width: 140px;
+    flex-shrink: 0;
+    color: var(--text-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-top: 1px;
+  }
+  .just-text { flex: 1; color: var(--text); }
+  .just-evidence {
+    flex-shrink: 0;
+    width: 200px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* ── Fast-path banner ── */
+  .fast-banner {
+    padding: 10px 24px;
+    background: rgba(251,146,60,0.06);
+    border-top: 1px solid rgba(251,146,60,0.2);
+    font-size: 11px;
+    color: var(--orange);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── Bias flag ── */
+  .bias-banner {
+    padding: 10px 24px;
+    background: rgba(251,191,36,0.06);
+    border-top: 1px solid rgba(251,191,36,0.2);
+    font-size: 11px;
+    color: var(--yellow);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── Override banner ── */
+  .override-banner {
+    padding: 10px 24px;
+    background: rgba(108,142,247,0.06);
+    border-top: 1px solid rgba(108,142,247,0.2);
+    font-size: 11px;
+    color: var(--accent);
+  }
+
+  /* ── Metadata row ── */
+  .meta-row {
+    display: flex;
+    gap: 20px;
+    padding: 10px 24px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .meta-row span { display: flex; align-items: center; gap: 5px; }
+
+  /* ── JD Summary ── */
+  .jd-summary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 8px;
+  }
+  .jd-summary h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 12px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 11px;
+    color: var(--text);
+  }
+  .skill-tag.required { border-color: rgba(108,142,247,0.4); color: var(--accent); background: var(--accent-soft); }
+
+  /* ── Footer ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 60px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-muted);
+    font-size: 11px;
+  }
+
+  @media print {
+    body { background: white; color: black; }
+    .candidate-card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<div class="header">
+  <div class="header-left">
+    <h1>Shortlist Report</h1>
+    <div class="subtitle">{{ report.job_title }} &nbsp;·&nbsp; {{ report.generated_at.strftime('%d %b %Y, %H:%M') }}</div>
+  </div>
+  <div class="header-right">
+    <div class="meta">
+      Generated by HR Shortlisting Agent<br>
+      Model: Claude claude-sonnet-4 &nbsp;·&nbsp; Framework: Custom ReAct + Two-Path<br>
+      Total cost: ${{ "%.4f"|format(report.total_estimated_cost_usd) }} &nbsp;·&nbsp; Time: {{ "%.0f"|format(report.total_processing_time_ms) }}ms
+    </div>
+    <span class="report-id">RPT-{{ report.report_id }}</span>
+  </div>
+</div>
+
+<!-- ── Stats bar ── -->
+<div class="stats-bar">
+  <div class="stat-card stat-total">
+    <div class="value">{{ report.total_candidates }}</div>
+    <div class="label">Total Candidates</div>
+  </div>
+  <div class="stat-card stat-hire">
+    <div class="value">{{ report.shortlisted }}</div>
+    <div class="label">Shortlisted</div>
+  </div>
+  <div class="stat-card stat-maybe">
+    <div class="value">{{ report.maybe_count }}</div>
+    <div class="label">Maybe</div>
+  </div>
+  <div class="stat-card stat-reject">
+    <div class="value">{{ report.rejected }}</div>
+    <div class="label">Rejected</div>
+  </div>
+  <div class="stat-card stat-fast">
+    <div class="value">{{ report.fast_path_filtered }}</div>
+    <div class="label">Fast-Path Screened</div>
+  </div>
+  <div class="stat-card stat-cost">
+    <div class="value">${{ "%.4f"|format(report.total_estimated_cost_usd) }}</div>
+    <div class="label">API Cost</div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ── JD Summary ── -->
+<div class="section-heading">Job Requirements</div>
+<div class="jd-summary">
+  <h3>{{ report.jd_requirements.title }} &nbsp;<span style="color:var(--text-muted);font-weight:400;font-size:13px">{{ report.jd_requirements.domain }}</span></h3>
+  <div style="margin-bottom:10px;font-size:12px;color:var(--text-muted)">
+    Min. {{ report.jd_requirements.min_experience_years }} yrs experience &nbsp;·&nbsp; {{ report.jd_requirements.education_requirement }}
+  </div>
+  <div class="skill-tags">
+    {% for skill in report.jd_requirements.required_skills %}
+    <span class="skill-tag required">{{ skill }}</span>
+    {% endfor %}
+    {% for skill in report.jd_requirements.preferred_skills %}
+    <span class="skill-tag">{{ skill }}</span>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- ── Candidate Cards ── -->
+<div class="section-heading">Ranked Candidates</div>
+
+{% for r in report.results %}
+{% set rank = loop.index %}
+{% set rec = r.recommendation %}
+
+<div class="candidate-card">
+
+  <!-- Card header -->
+  <div class="card-header">
+    <div class="rank-badge {% if rank <= 3 %}top{% endif %}">#{{ rank }}</div>
+    <div class="card-name">
+      <h3>{{ r.profile.name }}</h3>
+      <div class="file">{{ r.file_name }}{% if r.profile.email_masked %} &nbsp;·&nbsp; {{ r.profile.email_masked }}{% endif %}</div>
+    </div>
+
+    {% if rec == "Strong Hire" %}
+    <span class="recommendation-badge rec-strong">⭐ Strong Hire</span>
+    {% elif rec == "Hire" %}
+    <span class="recommendation-badge rec-hire">✓ Hire</span>
+    {% elif rec == "Maybe" %}
+    <span class="recommendation-badge rec-maybe">? Maybe</span>
+    {% elif rec == "No Hire" and r.fast_path_screened %}
+    <span class="recommendation-badge rec-fast">⚡ Fast Reject</span>
+    {% else %}
+    <span class="recommendation-badge rec-nohire">✗ No Hire</span>
+    {% endif %}
+
+    <div class="total-score">
+      <div class="score-num
+        {% if rec == 'Strong Hire' %}color-strong
+        {% elif rec == 'Hire' %}color-hire
+        {% elif rec == 'Maybe' %}color-maybe
+        {% else %}color-nohire{% endif %}">
+        {{ "%.1f"|format(r.weighted_total) }}
+      </div>
+      <div class="score-label">/ 10.0</div>
+    </div>
+  </div>
+
+  {% if not r.fast_path_screened %}
+  <!-- Score grid (5 dimensions) -->
+  <div class="score-grid">
+    {% set dims = [
+      ('Skills Match',   r.skills_match,          '30%'),
+      ('Experience',     r.experience_relevance,   '25%'),
+      ('Education',      r.education_certs,        '15%'),
+      ('Projects',       r.project_portfolio,      '20%'),
+      ('Communication',  r.communication_quality,  '10%'),
+    ] %}
+    {% for name, dim, weight in dims %}
+    <div class="score-cell">
+      <div class="dim-name">{{ name }}</div>
+      <div class="dim-score" style="color:
+        {% if dim.score >= 7.5 %}var(--green)
+        {% elif dim.score >= 5.0 %}var(--accent)
+        {% elif dim.score >= 3.0 %}var(--yellow)
+        {% else %}var(--red){% endif %}">
+        {{ "%.1f"|format(dim.score) }}
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:{{ (dim.score / 10 * 100)|int }}%; background:
+          {% if dim.score >= 7.5 %}var(--green)
+          {% elif dim.score >= 5.0 %}var(--accent)
+          {% elif dim.score >= 3.0 %}var(--yellow)
+          {% else %}var(--red){% endif %}"></div>
+      </div>
+      <div class="dim-weight">weight {{ weight }}</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Card body -->
+  <div class="card-body">
+    <div class="card-body-grid">
+      <div class="info-block">
+        <h4>Key Strengths</h4>
+        <ul class="strength">
+          {% for s in r.key_strengths %}
+          <li>{{ s }}</li>
+          {% else %}
+          <li style="color:var(--text-muted)">None identified</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="info-block">
+        <h4>Skill Gaps</h4>
+        <ul class="gap">
+          {% for g in r.skill_gaps %}
+          <li>{{ g }}</li>
+          {% else %}
+          <li style="color:var(--text-muted)">No significant gaps</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="info-block justifications">
+        <h4>Dimension Justifications</h4>
+        {% set dims2 = [
+          ('Skills Match',   r.skills_match),
+          ('Experience',     r.experience_relevance),
+          ('Education',      r.education_certs),
+          ('Projects',       r.project_portfolio),
+          ('Communication',  r.communication_quality),
+        ] %}
+        {% for name, dim in dims2 %}
+        <div class="just-row">
+          <div class="just-dim">{{ name }}</div>
+          <div class="just-text">{{ dim.justification }}</div>
+          <div class="just-evidence">{% if dim.evidence %}{{ dim.evidence[0] }}{% endif %}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Metadata row -->
+  <div class="meta-row">
+    <span>⏱ {{ "%.0f"|format(r.processing_time_ms) }}ms</span>
+    <span>💰 ${{ "%.5f"|format(r.estimated_cost_usd) }}</span>
+    <span>📊 BM25: {{ "%.0f"|format(r.bm25_overlap_score * 100) }}%</span>
+    {% if r.embedding_similarity > 0 %}
+    <span>🧠 Embedding sim: {{ "%.0f"|format(r.embedding_similarity * 100) }}%</span>
+    {% endif %}
+    <span>🔒 PII masked: {{ r.profile.pii_fields_masked }} fields</span>
+  </div>
+
+  <!-- Fast path banner -->
+  {% if r.fast_path_screened %}
+  <div class="fast-banner">
+    ⚡ Fast-path screened — BM25 skill overlap {{ "%.0f"|format(r.bm25_overlap_score * 100) }}% (below 15% threshold). LLM scoring skipped. Zero API cost for this candidate.
+  </div>
+  {% endif %}
+
+  <!-- Bias flag -->
+  {% if r.bias_flag %}
+  <div class="bias-banner">
+    ⚠ Bias signal detected — {{ r.bias_note }} Please ensure blind evaluation before final decision.
+  </div>
+  {% endif %}
+
+  <!-- Override banner -->
+  {% if r.overridden %}
+  <div class="override-banner">
+    ✏ Human override by {{ r.override_by or 'HR' }}: original score {{ "%.1f"|format(r.original_total) }} → {{ "%.1f"|format(r.weighted_total) }}.
+    Reason: {{ r.override_reason or '—' }}
+  </div>
+  {% endif %}
+
+</div>
+{% endfor %}
+
+</div><!-- /content -->
+
+<div class="footer">
+  <span>HR Shortlisting Agent · Two-Path Architecture · Claude claude-sonnet-4</span>
+  <span>Report ID: RPT-{{ report.report_id }} · {{ report.generated_at.strftime('%d %b %Y') }}</span>
+</div>
+
+</body>
+</html>

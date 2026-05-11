@@ -16,8 +16,6 @@ env/
 
 # Output files (don't commit generated reports)
 results/
-*.html
-*.json
 !.env.example
 
 # Models cache (large files)

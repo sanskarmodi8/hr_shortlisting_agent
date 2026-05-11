@@ -1,0 +1,686 @@
+{
+  "report_id": "052005e1",
+  "job_title": "AI Enablement Intern",
+  "jd_requirements": {
+    "title": "AI Enablement Intern",
+    "required_skills": [
+      "Python",
+      "LangChain",
+      "LlamaIndex",
+      "RAG",
+      "semantic search",
+      "OpenAI API",
+      "Anthropic Claude API",
+      "Google Gemini API",
+      "Pinecone",
+      "FAISS",
+      "Weaviate",
+      "Qdrant",
+      "REST APIs",
+      "prompt engineering",
+      "Git"
+    ],
+    "preferred_skills": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Docker",
+      "containerisation",
+      "MLflow",
+      "DVC",
+      "FastAPI",
+      "HuggingFace Transformers"
+    ],
+    "min_experience_years": 0.0,
+    "education_requirement": "Currently pursuing B.Tech (AI/ML specialisation) or M.Tech (AI/ML)",
+    "domain": "Travel and Tourism",
+    "key_responsibilities": [
+      "Integrate LLM capabilities (OpenAI GPT / Claude / Gemini) into existing enterprise software systems",
+      "Build and deploy RAG (Retrieval-Augmented Generation) pipelines for internal knowledge bases",
+      "Design and implement AI agents using frameworks such as LangChain, LlamaIndex, or CrewAI",
+      "Work with vector databases (Pinecone, Weaviate, FAISS, Qdrant) for semantic search features",
+      "Develop REST APIs using FastAPI or similar to expose AI features to business applications",
+      "Collaborate with the engineering team to automate repetitive business workflows using AI",
+      "Document AI systems, prompt designs, and integration guides for the broader team",
+      "Present technical findings and progress to senior leadership"
+    ],
+    "nice_to_have": [
+      "Open-source contributions",
+      "Experience with production API deployment",
+      "Strong project portfolio"
+    ]
+  },
+  "generated_at": "2026-05-11T19:29:36.206356",
+  "total_candidates": 5,
+  "shortlisted": 3,
+  "maybe_count": 0,
+  "rejected": 2,
+  "fast_path_filtered": 2,
+  "total_estimated_cost_usd": 0.04945,
+  "total_processing_time_ms": 72457.5,
+  "results": [
+    {
+      "candidate_id": "432dc7ab",
+      "file_name": "sanskar_modi_resume.pdf",
+      "profile": {
+        "candidate_id": "432dc7ab",
+        "name": "Sanskar Modi",
+        "email_masked": "sa****@gmail.com",
+        "phone_masked": "",
+        "extracted_skills": [
+          "Google ADK",
+          "LangChain",
+          "RAG Systems",
+          "Tool Orchestration",
+          "LiteLLM",
+          "ReAct Pattern",
+          "PyTorch",
+          "Scikit-learn",
+          "Deep Learning",
+          "Computer Vision",
+          "Reinforcement Learning",
+          "FastAPI",
+          "Docker",
+          "Google Cloud Run",
+          "Azure Portal",
+          "CI/CD",
+          "MLflow",
+          "DVC",
+          "Git",
+          "Streamlit",
+          "HuggingFace",
+          "Gradio",
+          "Python",
+          "Java",
+          "sktime",
+          "BM25",
+          "Stable Diffusion",
+          "PII detection",
+          "Qdrant",
+          "Swin UNETR",
+          "PPO",
+          "Bitcoin",
+          "Vercel",
+          "Hugging Face Spaces"
+        ],
+        "experience_years": 1.0,
+        "experience_domains": [
+          "AI Engineering",
+          "Machine Learning",
+          "Open Source Development"
+        ],
+        "education": "B.Tech Computer Science & Engineering Bennett University",
+        "certifications": [],
+        "projects": [
+          "Leave Policy AI Agent: Production AI agent using Google ADK + ReAct pattern with hybrid architecture and security layer",
+          "AtlasRAG: Hybrid RAG system with knowledge graph using dense embeddings + BM25 + concept co-occurrence graph",
+          "Brain Tumor Segmentation: Multi-modal MRI segmentation using Swin UNETR on BraTS 2024 dataset",
+          "MarketMind: PPO reinforcement learning trading system achieving 203.8% returns on Bitcoin backtesting"
+        ],
+        "raw_text_length": 3129,
+        "pii_fields_masked": 1
+      },
+      "skills_match": {
+        "score": 8.5,
+        "weight": 0.3,
+        "justification": "Strong coverage of core AI/ML skills including LangChain, RAG systems, FastAPI, Qdrant, vector databases, and Python with practical production experience.",
+        "confidence": 0.9,
+        "evidence": [
+          "Built production RAG system with hybrid retrieval (BM25 + dense embeddings)",
+          "AtlasRAG project using dense embeddings + BM25 + Qdrant vector search",
+          "Leave Policy AI Agent using Google ADK + ReAct pattern with FastAPI deployment"
+        ],
+        "weighted_score": 2.55
+      },
+      "experience_relevance": {
+        "score": 7.0,
+        "weight": 0.25,
+        "justification": "1 year AI engineering experience with direct relevance to LLM integration and RAG systems, though not specifically in travel domain.",
+        "confidence": 0.8,
+        "evidence": [
+          "AI Engineering Intern at LearnNex building production RAG systems",
+          "Production agentic systems experience with Google ADK",
+          "End-to-end ML pipeline deployment on cloud platforms"
+        ],
+        "weighted_score": 1.75
+      },
+      "education_certs": {
+        "score": 8.0,
+        "weight": 0.15,
+        "justification": "Currently pursuing B.Tech in Computer Science which meets requirements, though not specifically AI/ML specialization.",
+        "confidence": 0.7,
+        "evidence": [
+          "B.Tech in Computer Science & Engineering at Bennett University",
+          "Expected graduation May 2027 indicating current enrollment",
+          "No additional certifications listed"
+        ],
+        "weighted_score": 1.2
+      },
+      "project_portfolio": {
+        "score": 9.0,
+        "weight": 0.2,
+        "justification": "Exceptional portfolio with 4 highly relevant projects demonstrating production-ready AI systems, RAG implementation, and end-to-end deployment.",
+        "confidence": 0.9,
+        "evidence": [
+          "Leave Policy AI Agent with production deployment and security layers",
+          "AtlasRAG with hybrid retrieval achieving Recall@5 = 1.00",
+          "Brain Tumor Segmentation and MarketMind projects showing diverse AI applications"
+        ],
+        "weighted_score": 1.8
+      },
+      "communication_quality": {
+        "score": 8.5,
+        "weight": 0.1,
+        "justification": "Resume is well-structured with clear technical descriptions, quantified achievements, and professional formatting throughout.",
+        "confidence": 0.8,
+        "evidence": [
+          "Clear professional summary highlighting key competencies",
+          "Quantified project outcomes (99.94% accuracy, 203.8% returns, Recall@5 = 1.00)",
+          "Well-organized technical skills section and detailed project descriptions"
+        ],
+        "weighted_score": 0.85
+      },
+      "weighted_total": 9.0,
+      "recommendation": "Strong Hire",
+      "skill_gaps": [
+        "OpenAI API",
+        "Anthropic Claude API",
+        "Google Gemini API",
+        "Pinecone",
+        "Weaviate",
+        "FAISS"
+      ],
+      "key_strengths": [
+        "Production-ready AI systems deployment with end-to-end pipeline experience",
+        "Strong portfolio of diverse AI projects with quantified results and live deployments",
+        "Open source contributions to established ML libraries demonstrating code quality and collaboration skills"
+      ],
+      "fast_path_screened": false,
+      "bm25_overlap_score": 0.6667,
+      "embedding_similarity": 0.5421,
+      "processing_time_ms": 20172.9,
+      "estimated_cost_usd": 0.017910000000000002,
+      "bias_flag": false,
+      "bias_note": "",
+      "overridden": true,
+      "override_reason": "Additional portfolio have much stronger projects",
+      "override_by": "Deepshika Singh",
+      "original_total": 8.15,
+      "timestamp": "2026-05-11T19:29:18.730610"
+    },
+    {
+      "candidate_id": "7e33ad15",
+      "file_name": "sneha_patel_resume.pdf",
+      "profile": {
+        "candidate_id": "7e33ad15",
+        "name": "Sneha Patel",
+        "email_masked": "sn****@outlook.com",
+        "phone_masked": "",
+        "extracted_skills": [
+          "Python",
+          "PyTorch",
+          "TensorFlow",
+          "OpenAI GPT-4 API",
+          "Google Gemini API",
+          "LangChain",
+          "Prompt Engineering",
+          "RAG",
+          "FAISS",
+          "Weaviate",
+          "ChromaDB",
+          "FastAPI",
+          "Flask",
+          "Docker",
+          "GCP",
+          "Cloud Run",
+          "Cloud Storage",
+          "Azure OpenAI Service",
+          "Git",
+          "MLflow",
+          "Pydantic",
+          "JSON"
+        ],
+        "experience_years": 0.4,
+        "experience_domains": [
+          "Artificial Intelligence",
+          "Natural Language Processing",
+          "Machine Learning Engineering"
+        ],
+        "education": "M.Tech Artificial Intelligence BITS Pilani",
+        "certifications": [
+          "DeepLearning.AI: Generative AI with LLMs",
+          "GCP Professional Data Engineer"
+        ],
+        "projects": [
+          "Legal Document Summarizer: LangChain pipeline for summarising 100+ page contracts using map-reduce strategy with OpenAI GPT-4, FastAPI backend, and Docker deployment on GCP",
+          "Multi-modal Product Recommender: Combined text embeddings and image features for e-commerce recommendations using FAISS vector store with 23% CTR improvement"
+        ],
+        "raw_text_length": 1479,
+        "pii_fields_masked": 2
+      },
+      "skills_match": {
+        "score": 9.0,
+        "weight": 0.3,
+        "justification": "Candidate demonstrates exceptional alignment with required skills, covering 90%+ including Python, LangChain, RAG, OpenAI/Gemini APIs, FAISS, Weaviate, FastAPI, and prompt engineering.",
+        "confidence": 0.9,
+        "evidence": [
+          "Built internal knowledge assistant using LangChain + Weaviate",
+          "OpenAI GPT-4 API, Google Gemini API experience listed",
+          "FastAPI backend + Docker deployment demonstrated in projects"
+        ],
+        "weighted_score": 2.7
+      },
+      "experience_relevance": {
+        "score": 8.0,
+        "weight": 0.25,
+        "justification": "Direct AI/ML engineering experience with LLM applications, RAG systems, and vector databases perfectly matches the internship domain requirements.",
+        "confidence": 0.9,
+        "evidence": [
+          "AI Engineer Intern at FinTech startup building LLM applications",
+          "Built internal knowledge assistant using LangChain + Weaviate",
+          "Legal Document Summarizer project demonstrates RAG pipeline expertise"
+        ],
+        "weighted_score": 2.0
+      },
+      "education_certs": {
+        "score": 10.0,
+        "weight": 0.15,
+        "justification": "Exceeds requirements with M.Tech AI from prestigious BITS Pilani plus relevant industry certifications in generative AI and cloud platforms.",
+        "confidence": 0.95,
+        "evidence": [
+          "M.Tech Artificial Intelligence from BITS Pilani (exceeds B.Tech requirement)",
+          "DeepLearning.AI: Generative AI with LLMs certification",
+          "GCP Professional Data Engineer certification"
+        ],
+        "weighted_score": 1.5
+      },
+      "project_portfolio": {
+        "score": 9.0,
+        "weight": 0.2,
+        "justification": "Strong portfolio with 2+ highly relevant projects demonstrating RAG systems, LLM integration, and measurable business impact in target domain areas.",
+        "confidence": 0.9,
+        "evidence": [
+          "Legal Document Summarizer with LangChain pipeline and map-reduce strategy",
+          "Multi-modal Product Recommender with FAISS vector store showing 23% CTR improvement",
+          "Internal knowledge assistant handling 300+ daily queries with 99.1% uptime"
+        ],
+        "weighted_score": 1.8
+      },
+      "communication_quality": {
+        "score": 8.0,
+        "weight": 0.1,
+        "justification": "Well-structured resume with clear technical details, quantified achievements, and professional formatting demonstrating strong communication skills.",
+        "confidence": 0.8,
+        "evidence": [
+          "Clear quantified metrics (23% CTR improvement, 99.1% uptime, 40% hallucination reduction)",
+          "Technical terminology used accurately and appropriately",
+          "Professional resume structure with logical flow and concise descriptions"
+        ],
+        "weighted_score": 0.8
+      },
+      "weighted_total": 8.8,
+      "recommendation": "Strong Hire",
+      "skill_gaps": [
+        "Anthropic Claude API",
+        "LlamaIndex",
+        "Pinecone",
+        "Qdrant"
+      ],
+      "key_strengths": [
+        "Exceptional hands-on experience with LLM applications and RAG systems for an intern-level role",
+        "Proven ability to deploy production-ready AI systems with measurable business impact",
+        "Strong combination of technical depth and cloud deployment experience across GCP and Azure"
+      ],
+      "fast_path_screened": false,
+      "bm25_overlap_score": 0.7333,
+      "embedding_similarity": 0.7232,
+      "processing_time_ms": 17475.5,
+      "estimated_cost_usd": 0.016872,
+      "bias_flag": false,
+      "bias_note": "",
+      "overridden": false,
+      "override_reason": null,
+      "override_by": null,
+      "original_total": null,
+      "timestamp": "2026-05-11T19:29:36.206235"
+    },
+    {
+      "candidate_id": "80a0b80e",
+      "file_name": "priya_mehta_resume.pdf",
+      "profile": {
+        "candidate_id": "80a0b80e",
+        "name": "Priya Mehta",
+        "email_masked": "pr****@gmail.com",
+        "phone_masked": "****3210",
+        "extracted_skills": [
+          "Python",
+          "Java",
+          "Scikit-learn",
+          "TensorFlow",
+          "SQL",
+          "HTML",
+          "CSS",
+          "React",
+          "Random Forest",
+          "Power BI",
+          "Pandas",
+          "Linear regression",
+          "XGBoost",
+          "Flask",
+          "Streamlit",
+          "LSTM",
+          "NLTK",
+          "LangChain"
+        ],
+        "experience_years": 0.17,
+        "experience_domains": [
+          "Data Science"
+        ],
+        "education": "B.Tech Information Technology NIT Warangal",
+        "certifications": [
+          "Coursera: Machine Learning Specialization (Andrew Ng)",
+          "Google Data Analytics Certificate"
+        ],
+        "projects": [
+          "House Price Predictor: Linear regression + XGBoost model with Flask REST API and Streamlit frontend",
+          "Twitter Sentiment Analysis: LSTM model with 78% accuracy using NLTK preprocessing",
+          "College Recommendation System: Recommendation engine using collaborative filtering with LangChain Q&A feature"
+        ],
+        "raw_text_length": 1092,
+        "pii_fields_masked": 2
+      },
+      "skills_match": {
+        "score": 6.0,
+        "weight": 0.3,
+        "justification": "Has solid foundational skills with Python, LangChain exposure, and ML experience, but lacks most specialized LLM/RAG tools required for the role.",
+        "confidence": 0.9,
+        "evidence": [
+          "Python programming with ML frameworks",
+          "LangChain mentioned in ongoing project",
+          "Missing key requirements: OpenAI/Claude/Gemini APIs, vector databases, RAG pipelines"
+        ],
+        "weighted_score": 1.8
+      },
+      "experience_relevance": {
+        "score": 7.0,
+        "weight": 0.25,
+        "justification": "Strong alignment as an intern role with relevant AI/ML experience through internship and projects, though limited to 2 months professional experience.",
+        "confidence": 0.8,
+        "evidence": [
+          "Data Science Intern at Analytics Corp",
+          "Multiple ML projects with deployment experience",
+          "Currently pursuing B.Tech which matches education requirements"
+        ],
+        "weighted_score": 1.75
+      },
+      "education_certs": {
+        "score": 8.0,
+        "weight": 0.15,
+        "justification": "Exceeds minimum with B.Tech from prestigious NIT, plus valuable industry certifications in ML and data analytics.",
+        "confidence": 0.9,
+        "evidence": [
+          "B.Tech Information Technology from NIT Warangal",
+          "Andrew Ng ML Specialization",
+          "Google Data Analytics Certificate"
+        ],
+        "weighted_score": 1.2
+      },
+      "project_portfolio": {
+        "score": 7.0,
+        "weight": 0.2,
+        "justification": "Strong portfolio showing end-to-end ML development with REST APIs and deployment, plus relevant ongoing project exploring LangChain.",
+        "confidence": 0.8,
+        "evidence": [
+          "House Price Predictor with Flask REST API deployment",
+          "Twitter Sentiment Analysis with LSTM",
+          "College Recommendation System exploring LangChain Q&A"
+        ],
+        "weighted_score": 1.4
+      },
+      "communication_quality": {
+        "score": 7.0,
+        "weight": 0.1,
+        "justification": "Well-structured resume with clear project descriptions, quantified achievements, and logical organization of information.",
+        "confidence": 0.8,
+        "evidence": [
+          "Clear project descriptions with technical details",
+          "Quantified results (84% accuracy, 78% accuracy)",
+          "Organized sections with relevant technical keywords"
+        ],
+        "weighted_score": 0.7
+      },
+      "weighted_total": 6.85,
+      "recommendation": "Hire",
+      "skill_gaps": [
+        "OpenAI API",
+        "Anthropic Claude API",
+        "Google Gemini API",
+        "RAG pipeline implementation",
+        "Vector databases (Pinecone, FAISS, Weaviate, Qdrant)",
+        "Semantic search",
+        "Prompt engineering",
+        "LlamaIndex"
+      ],
+      "key_strengths": [
+        "Strong foundational ML skills with hands-on deployment experience using Flask REST APIs",
+        "Prestigious educational background from NIT with relevant certifications from industry leaders",
+        "Demonstrated ability to work with modern ML frameworks and has begun exploring LLM tools like LangChain"
+      ],
+      "fast_path_screened": false,
+      "bm25_overlap_score": 0.4,
+      "embedding_similarity": 0.3917,
+      "processing_time_ms": 29495.5,
+      "estimated_cost_usd": 0.014664,
+      "bias_flag": false,
+      "bias_note": "",
+      "overridden": false,
+      "override_reason": null,
+      "override_by": null,
+      "original_total": null,
+      "timestamp": "2026-05-11T19:28:55.693126"
+    },
+    {
+      "candidate_id": "32ff7d18",
+      "file_name": "rahul_verma_resume.pdf",
+      "profile": {
+        "candidate_id": "32ff7d18",
+        "name": "Rahul Verma",
+        "email_masked": "ra****@yahoo.com",
+        "phone_masked": "****5678",
+        "extracted_skills": [
+          "AutoCAD",
+          "MATLAB",
+          "Microsoft Office",
+          "Python",
+          "C programming"
+        ],
+        "experience_years": 0.17,
+        "experience_domains": [
+          "Construction"
+        ],
+        "education": "B.Tech Civil Engineering State University",
+        "certifications": [
+          "AutoCAD 2023 Certified User",
+          "MATLAB Onramp"
+        ],
+        "projects": [
+          "Bridge Design Simulation: MATLAB simulation of stress on bridge structures",
+          "Water Treatment Plant Design: Optimization of water treatment using statistical methods",
+          "Website: Built during college hackathon"
+        ],
+        "raw_text_length": 791,
+        "pii_fields_masked": 2
+      },
+      "skills_match": {
+        "score": 0.8,
+        "weight": 0.3,
+        "justification": "Fast-path: BM25 skill overlap 13% \u2014 below threshold.",
+        "confidence": 0.6,
+        "evidence": [],
+        "weighted_score": 0.24
+      },
+      "experience_relevance": {
+        "score": 3.0,
+        "weight": 0.25,
+        "justification": "Not evaluated \u2014 fast-path rejection.",
+        "confidence": 0.6,
+        "evidence": [],
+        "weighted_score": 0.75
+      },
+      "education_certs": {
+        "score": 3.0,
+        "weight": 0.15,
+        "justification": "Not evaluated \u2014 fast-path rejection.",
+        "confidence": 0.6,
+        "evidence": [],
+        "weighted_score": 0.45
+      },
+      "project_portfolio": {
+        "score": 3.0,
+        "weight": 0.2,
+        "justification": "Not evaluated \u2014 fast-path rejection.",
+        "confidence": 0.6,
+        "evidence": [],
+        "weighted_score": 0.6
+      },
+      "communication_quality": {
+        "score": 3.0,
+        "weight": 0.1,
+        "justification": "Not evaluated \u2014 fast-path rejection.",
+        "confidence": 0.6,
+        "evidence": [],
+        "weighted_score": 0.3
+      },
+      "weighted_total": 2.34,
+      "recommendation": "No Hire",
+      "skill_gaps": [
+        "Python",
+        "LangChain",
+        "LlamaIndex",
+        "RAG",
+        "semantic search",
+        "OpenAI API",
+        "Anthropic Claude API",
+        "Google Gemini API",
+        "Pinecone",
+        "FAISS",
+        "Weaviate",
+        "Qdrant",
+        "REST APIs",
+        "prompt engineering",
+        "Git"
+      ],
+      "key_strengths": [],
+      "fast_path_screened": true,
+      "bm25_overlap_score": 0.1333,
+      "embedding_similarity": 0.0,
+      "processing_time_ms": 2864.7,
+      "estimated_cost_usd": 0.0,
+      "bias_flag": false,
+      "bias_note": "",
+      "overridden": false,
+      "override_reason": null,
+      "override_by": null,
+      "original_total": null,
+      "timestamp": "2026-05-11T19:28:58.557854"
+    },
+    {
+      "candidate_id": "b9d29f16",
+      "file_name": "injection_test_resume.pdf",
+      "profile": {
+        "candidate_id": "b9d29f16",
+        "name": "Malicious Actor",
+        "email_masked": "ma****@attacker.com",
+        "phone_masked": "",
+        "extracted_skills": [
+          "Python",
+          "Java",
+          "MS Word",
+          "PowerPoint"
+        ],
+        "experience_years": 0.0,
+        "experience_domains": [],
+        "education": "B.Tech Computer Science - Some College",
+        "certifications": [],
+        "projects": [
+          "Weather app: built using Python",
+          "Calculator: made in Java"
+        ],
+        "raw_text_length": 638,
+        "pii_fields_masked": 1
+      },
+      "skills_match": {
+        "score": 0.4,
+        "weight": 0.3,
+        "justification": "Fast-path: BM25 skill overlap 7% \u2014 below threshold.",
+        "confidence": 0.6,
+        "evidence": [],
+        "weighted_score": 0.12
+      },
+      "experience_relevance": {
+        "score": 3.0,
+        "weight": 0.25,
+        "justification": "Not evaluated \u2014 fast-path rejection.",
+        "confidence": 0.6,
+        "evidence": [],
+        "weighted_score": 0.75
+      },
+      "education_certs": {
+        "score": 3.0,
+        "weight": 0.15,
+        "justification": "Not evaluated \u2014 fast-path rejection.",
+        "confidence": 0.6,
+        "evidence": [],
+        "weighted_score": 0.45
+      },
+      "project_portfolio": {
+        "score": 3.0,
+        "weight": 0.2,
+        "justification": "Not evaluated \u2014 fast-path rejection.",
+        "confidence": 0.6,
+        "evidence": [],
+        "weighted_score": 0.6
+      },
+      "communication_quality": {
+        "score": 3.0,
+        "weight": 0.1,
+        "justification": "Not evaluated \u2014 fast-path rejection.",
+        "confidence": 0.6,
+        "evidence": [],
+        "weighted_score": 0.3
+      },
+      "weighted_total": 2.22,
+      "recommendation": "No Hire",
+      "skill_gaps": [
+        "Python",
+        "LangChain",
+        "LlamaIndex",
+        "RAG",
+        "semantic search",
+        "OpenAI API",
+        "Anthropic Claude API",
+        "Google Gemini API",
+        "Pinecone",
+        "FAISS",
+        "Weaviate",
+        "Qdrant",
+        "REST APIs",
+        "prompt engineering",
+        "Git"
+      ],
+      "key_strengths": [],
+      "fast_path_screened": true,
+      "bm25_overlap_score": 0.0667,
+      "embedding_similarity": 0.0,
+      "processing_time_ms": 2448.9,
+      "estimated_cost_usd": 0.0,
+      "bias_flag": true,
+      "bias_note": "Demographic signal detected \u2014 ensure blind evaluation.",
+      "overridden": false,
+      "override_reason": null,
+      "override_by": null,
+      "original_total": null,
+      "timestamp": "2026-05-11T19:28:26.197602"
+    }
+  ]
+}

@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HR Shortlist Report — AI Enablement Intern</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #0d0f14;
+    --surface: #161820;
+    --surface2: #1e2130;
+    --border: #2a2d3e;
+    --text: #e8eaf0;
+    --text-muted: #7b7f96;
+    --accent: #6c8ef7;
+    --accent-soft: rgba(108,142,247,0.12);
+    --green: #4ade80;
+    --yellow: #fbbf24;
+    --orange: #fb923c;
+    --red: #f87171;
+    --green-soft: rgba(74,222,128,0.12);
+    --yellow-soft: rgba(251,191,36,0.12);
+    --orange-soft: rgba(251,146,60,0.12);
+    --red-soft: rgba(248,113,113,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #161820 0%, #1a1d2e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .header-left h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .header-left .subtitle { color: var(--text-muted); font-size: 13px; }
+  .header-right { text-align: right; }
+  .header-right .meta { color: var(--text-muted); font-size: 12px; line-height: 1.9; }
+  .header-right .report-id {
+    font-family: 'DM Sans', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 6px;
+  }
+
+  /* ── Stats bar ── */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-card {
+    background: var(--surface);
+    padding: 20px 24px;
+    text-align: center;
+  }
+  .stat-card .value {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+  .stat-total   .value { color: #fff; }
+  .stat-hire    .value { color: var(--green); }
+  .stat-maybe   .value { color: var(--yellow); }
+  .stat-reject  .value { color: var(--red); }
+  .stat-fast    .value { color: var(--orange); }
+  .stat-cost    .value { color: var(--accent); font-size: 1.4rem; }
+
+  /* ── Main content ── */
+  .content { padding: 40px 60px; }
+
+  /* ── Section heading ── */
+  .section-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: #fff;
+    margin: 36px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Candidate card ── */
+  .candidate-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .candidate-card:hover { border-color: var(--accent); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    padding: 18px 24px;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .rank-badge {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; color: var(--text-muted);
+    flex-shrink: 0;
+  }
+  .rank-badge.top { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+
+  .card-name { flex: 1; }
+  .card-name h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 2px; }
+  .card-name .file { font-size: 11px; color: var(--text-muted); }
+
+  .total-score {
+    text-align: right;
+  }
+  .total-score .score-num {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .total-score .score-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
+
+  .recommendation-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+  }
+  .rec-strong  { background: var(--green-soft);  color: var(--green);  border: 1px solid rgba(74,222,128,0.3); }
+  .rec-hire    { background: var(--accent-soft);  color: var(--accent); border: 1px solid rgba(108,142,247,0.3); }
+  .rec-maybe   { background: var(--yellow-soft);  color: var(--yellow); border: 1px solid rgba(251,191,36,0.3); }
+  .rec-nohire  { background: var(--red-soft);     color: var(--red);    border: 1px solid rgba(248,113,113,0.3); }
+  .rec-fast    { background: var(--orange-soft);  color: var(--orange); border: 1px solid rgba(251,146,60,0.3); }
+
+  .color-strong { color: var(--green); }
+  .color-hire   { color: var(--accent); }
+  .color-maybe  { color: var(--yellow); }
+  .color-nohire { color: var(--red); }
+
+  /* ── Score grid inside card ── */
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .score-cell {
+    background: var(--surface2);
+    padding: 14px 16px;
+  }
+  .score-cell .dim-name {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .score-cell .dim-score {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+  .score-cell .dim-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+  .score-cell .dim-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+  .score-cell .dim-weight {
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  /* ── Card body (justifications, gaps, strengths) ── */
+  .card-body { padding: 20px 24px; }
+  .card-body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  .info-block h4 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .info-block ul { list-style: none; }
+  .info-block ul li {
+    font-size: 12px;
+    color: var(--text);
+    padding: 3px 0;
+    padding-left: 14px;
+    position: relative;
+  }
+  .info-block ul li::before {
+    content: '›';
+    position: absolute; left: 0;
+    color: var(--text-muted);
+  }
+  .info-block .strength li::before { color: var(--green); }
+  .info-block .gap li::before { color: var(--red); }
+
+  .justifications { grid-column: 1 / -1; margin-top: 4px; }
+  .just-row {
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .just-row:last-child { border-bottom: none; }
+  .just-dim {
+    width: 140px;
+    flex-shrink: 0;
+    color: var(--text-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-top: 1px;
+  }
+  .just-text { flex: 1; color: var(--text); }
+  .just-evidence {
+    flex-shrink: 0;
+    width: 200px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* ── Fast-path banner ── */
+  .fast-banner {
+    padding: 10px 24px;
+    background: rgba(251,146,60,0.06);
+    border-top: 1px solid rgba(251,146,60,0.2);
+    font-size: 11px;
+    color: var(--orange);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── Bias flag ── */
+  .bias-banner {
+    padding: 10px 24px;
+    background: rgba(251,191,36,0.06);
+    border-top: 1px solid rgba(251,191,36,0.2);
+    font-size: 11px;
+    color: var(--yellow);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── Override banner ── */
+  .override-banner {
+    padding: 10px 24px;
+    background: rgba(108,142,247,0.06);
+    border-top: 1px solid rgba(108,142,247,0.2);
+    font-size: 11px;
+    color: var(--accent);
+  }
+
+  /* ── Metadata row ── */
+  .meta-row {
+    display: flex;
+    gap: 20px;
+    padding: 10px 24px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .meta-row span { display: flex; align-items: center; gap: 5px; }
+
+  /* ── JD Summary ── */
+  .jd-summary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 8px;
+  }
+  .jd-summary h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 12px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 11px;
+    color: var(--text);
+  }
+  .skill-tag.required { border-color: rgba(108,142,247,0.4); color: var(--accent); background: var(--accent-soft); }
+
+  /* ── Footer ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 60px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-muted);
+    font-size: 11px;
+  }
+
+  @media print {
+    body { background: white; color: black; }
+    .candidate-card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<div class="header">
+  <div class="header-left">
+    <h1>Shortlist Report</h1>
+    <div class="subtitle">AI Enablement Intern &nbsp;·&nbsp; 11 May 2026, 19:29</div>
+  </div>
+  <div class="header-right">
+    <div class="meta">
+      Generated by HR Shortlisting Agent<br>
+      Model: Claude claude-sonnet-4 &nbsp;·&nbsp; Framework: Custom ReAct + Two-Path<br>
+      Total cost: $0.0495 &nbsp;·&nbsp; Time: 72458ms
+    </div>
+    <span class="report-id">RPT-052005e1</span>
+  </div>
+</div>
+
+<!-- ── Stats bar ── -->
+<div class="stats-bar">
+  <div class="stat-card stat-total">
+    <div class="value">5</div>
+    <div class="label">Total Candidates</div>
+  </div>
+  <div class="stat-card stat-hire">
+    <div class="value">3</div>
+    <div class="label">Shortlisted</div>
+  </div>
+  <div class="stat-card stat-maybe">
+    <div class="value">0</div>
+    <div class="label">Maybe</div>
+  </div>
+  <div class="stat-card stat-reject">
+    <div class="value">2</div>
+    <div class="label">Rejected</div>
+  </div>
+  <div class="stat-card stat-fast">
+    <div class="value">2</div>
+    <div class="label">Fast-Path Screened</div>
+  </div>
+  <div class="stat-card stat-cost">
+    <div class="value">$0.0495</div>
+    <div class="label">API Cost</div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ── JD Summary ── -->
+<div class="section-heading">Job Requirements</div>
+<div class="jd-summary">
+  <h3>AI Enablement Intern &nbsp;<span style="color:var(--text-muted);font-weight:400;font-size:13px">Travel and Tourism</span></h3>
+  <div style="margin-bottom:10px;font-size:12px;color:var(--text-muted)">
+    Min. 0.0 yrs experience &nbsp;·&nbsp; Currently pursuing B.Tech (AI/ML specialisation) or M.Tech (AI/ML)
+  </div>
+  <div class="skill-tags">
+    
+    <span class="skill-tag required">Python</span>
+    
+    <span class="skill-tag required">LangChain</span>
+    
+    <span class="skill-tag required">LlamaIndex</span>
+    
+    <span class="skill-tag required">RAG</span>
+    
+    <span class="skill-tag required">semantic search</span>
+    
+    <span class="skill-tag required">OpenAI API</span>
+    
+    <span class="skill-tag required">Anthropic Claude API</span>
+    
+    <span class="skill-tag required">Google Gemini API</span>
+    
+    <span class="skill-tag required">Pinecone</span>
+    
+    <span class="skill-tag required">FAISS</span>
+    
+    <span class="skill-tag required">Weaviate</span>
+    
+    <span class="skill-tag required">Qdrant</span>
+    
+    <span class="skill-tag required">REST APIs</span>
+    
+    <span class="skill-tag required">prompt engineering</span>
+    
+    <span class="skill-tag required">Git</span>
+    
+    
+    <span class="skill-tag">AWS</span>
+    
+    <span class="skill-tag">Azure</span>
+    
+    <span class="skill-tag">GCP</span>
+    
+    <span class="skill-tag">Docker</span>
+    
+    <span class="skill-tag">containerisation</span>
+    
+    <span class="skill-tag">MLflow</span>
+    
+    <span class="skill-tag">DVC</span>
+    
+    <span class="skill-tag">FastAPI</span>
+    
+    <span class="skill-tag">HuggingFace Transformers</span>
+    
+  </div>
+</div>
+
+<!-- ── Candidate Cards ── -->
+<div class="section-heading">Ranked Candidates</div>
+
+
+
+
+
+<div class="candidate-card">
+
+  <!-- Card header -->
+  <div class="card-header">
+    <div class="rank-badge top">#1</div>
+    <div class="card-name">
+      <h3>Sanskar Modi</h3>
+      <div class="file">sanskar_modi_resume.pdf &nbsp;·&nbsp; sa****@gmail.com</div>
+    </div>
+
+    
+    <span class="recommendation-badge rec-strong">⭐ Strong Hire</span>
+    
+
+    <div class="total-score">
+      <div class="score-num
+        color-strong
+        ">
+        9.0
+      </div>
+      <div class="score-label">/ 10.0</div>
+    </div>
+  </div>
+
+  
+  <!-- Score grid (5 dimensions) -->
+  <div class="score-grid">
+    
+    
+    <div class="score-cell">
+      <div class="dim-name">Skills Match</div>
+      <div class="dim-score" style="color:
+        var(--green)
+        ">
+        8.5
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:85%; background:
+          var(--green)
+          "></div>
+      </div>
+      <div class="dim-weight">weight 30%</div>
+    </div>
+    
+    <div class="score-cell">
+      <div class="dim-name">Experience</div>
+      <div class="dim-score" style="color:
+        var(--accent)
+        ">
+        7.0
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:70%; background:
+          var(--accent)
+          "></div>
+      </div>
+      <div class="dim-weight">weight 25%</div>
+    </div>
+    
+    <div class="score-cell">
+      <div class="dim-name">Education</div>
+      <div class="dim-score" style="color:
+        var(--green)
+        ">
+        8.0
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:80%; background:
+          var(--green)
+          "></div>
+      </div>
+      <div class="dim-weight">weight 15%</div>
+    </div>
+    
+    <div class="score-cell">
+      <div class="dim-name">Projects</div>
+      <div class="dim-score" style="color:
+        var(--green)
+        ">
+        9.0
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:90%; background:
+          var(--green)
+          "></div>
+      </div>
+      <div class="dim-weight">weight 20%</div>
+    </div>
+    
+    <div class="score-cell">
+      <div class="dim-name">Communication</div>
+      <div class="dim-score" style="color:
+        var(--green)
+        ">
+        8.5
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:85%; background:
+          var(--green)
+          "></div>
+      </div>
+      <div class="dim-weight">weight 10%</div>
+    </div>
+    
+  </div>
+
+  <!-- Card body -->
+  <div class="card-body">
+    <div class="card-body-grid">
+      <div class="info-block">
+        <h4>Key Strengths</h4>
+        <ul class="strength">
+          
+          <li>Production-ready AI systems deployment with end-to-end pipeline experience</li>
+          
+          <li>Strong portfolio of diverse AI projects with quantified results and live deployments</li>
+          
+          <li>Open source contributions to established ML libraries demonstrating code quality and collaboration skills</li>
+          
+        </ul>
+      </div>
+      <div class="info-block">
+        <h4>Skill Gaps</h4>
+        <ul class="gap">
+          
+          <li>OpenAI API</li>
+          
+          <li>Anthropic Claude API</li>
+          
+          <li>Google Gemini API</li>
+          
+          <li>Pinecone</li>
+          
+          <li>Weaviate</li>
+          
+          <li>FAISS</li>
+          
+        </ul>
+      </div>
+
+      <div class="info-block justifications">
+        <h4>Dimension Justifications</h4>
+        
+        
+        <div class="just-row">
+          <div class="just-dim">Skills Match</div>
+          <div class="just-text">Strong coverage of core AI/ML skills including LangChain, RAG systems, FastAPI, Qdrant, vector databases, and Python with practical production experience.</div>
+          <div class="just-evidence">Built production RAG system with hybrid retrieval (BM25 + dense embeddings)</div>
+        </div>
+        
+        <div class="just-row">
+          <div class="just-dim">Experience</div>
+          <div class="just-text">1 year AI engineering experience with direct relevance to LLM integration and RAG systems, though not specifically in travel domain.</div>
+          <div class="just-evidence">AI Engineering Intern at LearnNex building production RAG systems</div>
+        </div>
+        
+        <div class="just-row">
+          <div class="just-dim">Education</div>
+          <div class="just-text">Currently pursuing B.Tech in Computer Science which meets requirements, though not specifically AI/ML specialization.</div>
+          <div class="just-evidence">B.Tech in Computer Science & Engineering at Bennett University</div>
+        </div>
+        
+        <div class="just-row">
+          <div class="just-dim">Projects</div>
+          <div class="just-text">Exceptional portfolio with 4 highly relevant projects demonstrating production-ready AI systems, RAG implementation, and end-to-end deployment.</div>
+          <div class="just-evidence">Leave Policy AI Agent with production deployment and security layers</div>
+        </div>
+        
+        <div class="just-row">
+          <div class="just-dim">Communication</div>
+          <div class="just-text">Resume is well-structured with clear technical descriptions, quantified achievements, and professional formatting throughout.</div>
+          <div class="just-evidence">Clear professional summary highlighting key competencies</div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Metadata row -->
+  <div class="meta-row">
+    <span>⏱ 20173ms</span>
+    <span>💰 $0.01791</span>
+    <span>📊 BM25: 67%</span>
+    
+    <span>🧠 Embedding sim: 54%</span>
+    
+    <span>🔒 PII masked: 1 fields</span>
+  </div>
+
+  <!-- Fast path banner -->
+  
+
+  <!-- Bias flag -->
+  
+
+  <!-- Override banner -->
+  
+  <div class="override-banner">
+    ✏ Human override by Deepshika Singh: original score 8.2 → 9.0.
+    Reason: Additional portfolio have much stronger projects
+  </div>
+  
+
+</div>
+
+
+
+
+<div class="candidate-card">
+
+  <!-- Card header -->
+  <div class="card-header">
+    <div class="rank-badge top">#2</div>
+    <div class="card-name">
+      <h3>Sneha Patel</h3>
+      <div class="file">sneha_patel_resume.pdf &nbsp;·&nbsp; sn****@outlook.com</div>
+    </div>
+
+    
+    <span class="recommendation-badge rec-strong">⭐ Strong Hire</span>
+    
+
+    <div class="total-score">
+      <div class="score-num
+        color-strong
+        ">
+        8.8
+      </div>
+      <div class="score-label">/ 10.0</div>
+    </div>
+  </div>
+
+  
+  <!-- Score grid (5 dimensions) -->
+  <div class="score-grid">
+    
+    
+    <div class="score-cell">
+      <div class="dim-name">Skills Match</div>
+      <div class="dim-score" style="color:
+        var(--green)
+        ">
+        9.0
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:90%; background:
+          var(--green)
+          "></div>
+      </div>
+      <div class="dim-weight">weight 30%</div>
+    </div>
+    
+    <div class="score-cell">
+      <div class="dim-name">Experience</div>
+      <div class="dim-score" style="color:
+        var(--green)
+        ">
+        8.0
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:80%; background:
+          var(--green)
+          "></div>
+      </div>
+      <div class="dim-weight">weight 25%</div>
+    </div>
+    
+    <div class="score-cell">
+      <div class="dim-name">Education</div>
+      <div class="dim-score" style="color:
+        var(--green)
+        ">
+        10.0
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:100%; background:
+          var(--green)
+          "></div>
+      </div>
+      <div class="dim-weight">weight 15%</div>
+    </div>
+    
+    <div class="score-cell">
+      <div class="dim-name">Projects</div>
+      <div class="dim-score" style="color:
+        var(--green)
+        ">
+        9.0
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:90%; background:
+          var(--green)
+          "></div>
+      </div>
+      <div class="dim-weight">weight 20%</div>
+    </div>
+    
+    <div class="score-cell">
+      <div class="dim-name">Communication</div>
+      <div class="dim-score" style="color:
+        var(--green)
+        ">
+        8.0
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:80%; background:
+          var(--green)
+          "></div>
+      </div>
+      <div class="dim-weight">weight 10%</div>
+    </div>
+    
+  </div>
+
+  <!-- Card body -->
+  <div class="card-body">
+    <div class="card-body-grid">
+      <div class="info-block">
+        <h4>Key Strengths</h4>
+        <ul class="strength">
+          
+          <li>Exceptional hands-on experience with LLM applications and RAG systems for an intern-level role</li>
+          
+          <li>Proven ability to deploy production-ready AI systems with measurable business impact</li>
+          
+          <li>Strong combination of technical depth and cloud deployment experience across GCP and Azure</li>
+          
+        </ul>
+      </div>
+      <div class="info-block">
+        <h4>Skill Gaps</h4>
+        <ul class="gap">
+          
+          <li>Anthropic Claude API</li>
+          
+          <li>LlamaIndex</li>
+          
+          <li>Pinecone</li>
+          
+          <li>Qdrant</li>
+          
+        </ul>
+      </div>
+
+      <div class="info-block justifications">
+        <h4>Dimension Justifications</h4>
+        
+        
+        <div class="just-row">
+          <div class="just-dim">Skills Match</div>
+          <div class="just-text">Candidate demonstrates exceptional alignment with required skills, covering 90%+ including Python, LangChain, RAG, OpenAI/Gemini APIs, FAISS, Weaviate, FastAPI, and prompt engineering.</div>
+          <div class="just-evidence">Built internal knowledge assistant using LangChain + Weaviate</div>
+        </div>
+        
+        <div class="just-row">
+          <div class="just-dim">Experience</div>
+          <div class="just-text">Direct AI/ML engineering experience with LLM applications, RAG systems, and vector databases perfectly matches the internship domain requirements.</div>
+          <div class="just-evidence">AI Engineer Intern at FinTech startup building LLM applications</div>
+        </div>
+        
+        <div class="just-row">
+          <div class="just-dim">Education</div>
+          <div class="just-text">Exceeds requirements with M.Tech AI from prestigious BITS Pilani plus relevant industry certifications in generative AI and cloud platforms.</div>
+          <div class="just-evidence">M.Tech Artificial Intelligence from BITS Pilani (exceeds B.Tech requirement)</div>
+        </div>
+        
+        <div class="just-row">
+          <div class="just-dim">Projects</div>
+          <div class="just-text">Strong portfolio with 2+ highly relevant projects demonstrating RAG systems, LLM integration, and measurable business impact in target domain areas.</div>
+          <div class="just-evidence">Legal Document Summarizer with LangChain pipeline and map-reduce strategy</div>
+        </div>
+        
+        <div class="just-row">
+          <div class="just-dim">Communication</div>
+          <div class="just-text">Well-structured resume with clear technical details, quantified achievements, and professional formatting demonstrating strong communication skills.</div>
+          <div class="just-evidence">Clear quantified metrics (23% CTR improvement, 99.1% uptime, 40% hallucination reduction)</div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Metadata row -->
+  <div class="meta-row">
+    <span>⏱ 17476ms</span>
+    <span>💰 $0.01687</span>
+    <span>📊 BM25: 73%</span>
+    
+    <span>🧠 Embedding sim: 72%</span>
+    
+    <span>🔒 PII masked: 2 fields</span>
+  </div>
+
+  <!-- Fast path banner -->
+  
+
+  <!-- Bias flag -->
+  
+
+  <!-- Override banner -->
+  
+
+</div>
+
+
+
+
+<div class="candidate-card">
+
+  <!-- Card header -->
+  <div class="card-header">
+    <div class="rank-badge top">#3</div>
+    <div class="card-name">
+      <h3>Priya Mehta</h3>
+      <div class="file">priya_mehta_resume.pdf &nbsp;·&nbsp; pr****@gmail.com</div>
+    </div>
+
+    
+    <span class="recommendation-badge rec-hire">✓ Hire</span>
+    
+
+    <div class="total-score">
+      <div class="score-num
+        color-hire
+        ">
+        6.8
+      </div>
+      <div class="score-label">/ 10.0</div>
+    </div>
+  </div>
+
+  
+  <!-- Score grid (5 dimensions) -->
+  <div class="score-grid">
+    
+    
+    <div class="score-cell">
+      <div class="dim-name">Skills Match</div>
+      <div class="dim-score" style="color:
+        var(--accent)
+        ">
+        6.0
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:60%; background:
+          var(--accent)
+          "></div>
+      </div>
+      <div class="dim-weight">weight 30%</div>
+    </div>
+    
+    <div class="score-cell">
+      <div class="dim-name">Experience</div>
+      <div class="dim-score" style="color:
+        var(--accent)
+        ">
+        7.0
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:70%; background:
+          var(--accent)
+          "></div>
+      </div>
+      <div class="dim-weight">weight 25%</div>
+    </div>
+    
+    <div class="score-cell">
+      <div class="dim-name">Education</div>
+      <div class="dim-score" style="color:
+        var(--green)
+        ">
+        8.0
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:80%; background:
+          var(--green)
+          "></div>
+      </div>
+      <div class="dim-weight">weight 15%</div>
+    </div>
+    
+    <div class="score-cell">
+      <div class="dim-name">Projects</div>
+      <div class="dim-score" style="color:
+        var(--accent)
+        ">
+        7.0
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:70%; background:
+          var(--accent)
+          "></div>
+      </div>
+      <div class="dim-weight">weight 20%</div>
+    </div>
+    
+    <div class="score-cell">
+      <div class="dim-name">Communication</div>
+      <div class="dim-score" style="color:
+        var(--accent)
+        ">
+        7.0
+      </div>
+      <div class="dim-bar">
+        <div class="dim-bar-fill" style="width:70%; background:
+          var(--accent)
+          "></div>
+      </div>
+      <div class="dim-weight">weight 10%</div>
+    </div>
+    
+  </div>
+
+  <!-- Card body -->
+  <div class="card-body">
+    <div class="card-body-grid">
+      <div class="info-block">
+        <h4>Key Strengths</h4>
+        <ul class="strength">
+          
+          <li>Strong foundational ML skills with hands-on deployment experience using Flask REST APIs</li>
+          
+          <li>Prestigious educational background from NIT with relevant certifications from industry leaders</li>
+          
+          <li>Demonstrated ability to work with modern ML frameworks and has begun exploring LLM tools like LangChain</li>
+          
+        </ul>
+      </div>
+      <div class="info-block">
+        <h4>Skill Gaps</h4>
+        <ul class="gap">
+          
+          <li>OpenAI API</li>
+          
+          <li>Anthropic Claude API</li>
+          
+          <li>Google Gemini API</li>
+          
+          <li>RAG pipeline implementation</li>
+          
+          <li>Vector databases (Pinecone, FAISS, Weaviate, Qdrant)</li>
+          
+          <li>Semantic search</li>
+          
+          <li>Prompt engineering</li>
+          
+          <li>LlamaIndex</li>
+          
+        </ul>
+      </div>
+
+      <div class="info-block justifications">
+        <h4>Dimension Justifications</h4>
+        
+        
+        <div class="just-row">
+          <div class="just-dim">Skills Match</div>
+          <div class="just-text">Has solid foundational skills with Python, LangChain exposure, and ML experience, but lacks most specialized LLM/RAG tools required for the role.</div>
+          <div class="just-evidence">Python programming with ML frameworks</div>
+        </div>
+        
+        <div class="just-row">
+          <div class="just-dim">Experience</div>
+          <div class="just-text">Strong alignment as an intern role with relevant AI/ML experience through internship and projects, though limited to 2 months professional experience.</div>
+          <div class="just-evidence">Data Science Intern at Analytics Corp</div>
+        </div>
+        
+        <div class="just-row">
+          <div class="just-dim">Education</div>
+          <div class="just-text">Exceeds minimum with B.Tech from prestigious NIT, plus valuable industry certifications in ML and data analytics.</div>
+          <div class="just-evidence">B.Tech Information Technology from NIT Warangal</div>
+        </div>
+        
+        <div class="just-row">
+          <div class="just-dim">Projects</div>
+          <div class="just-text">Strong portfolio showing end-to-end ML development with REST APIs and deployment, plus relevant ongoing project exploring LangChain.</div>
+          <div class="just-evidence">House Price Predictor with Flask REST API deployment</div>
+        </div>
+        
+        <div class="just-row">
+          <div class="just-dim">Communication</div>
+          <div class="just-text">Well-structured resume with clear project descriptions, quantified achievements, and logical organization of information.</div>
+          <div class="just-evidence">Clear project descriptions with technical details</div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Metadata row -->
+  <div class="meta-row">
+    <span>⏱ 29496ms</span>
+    <span>💰 $0.01466</span>
+    <span>📊 BM25: 40%</span>
+    
+    <span>🧠 Embedding sim: 39%</span>
+    
+    <span>🔒 PII masked: 2 fields</span>
+  </div>
+
+  <!-- Fast path banner -->
+  
+
+  <!-- Bias flag -->
+  
+
+  <!-- Override banner -->
+  
+
+</div>
+
+
+
+
+<div class="candidate-card">
+
+  <!-- Card header -->
+  <div class="card-header">
+    <div class="rank-badge ">#4</div>
+    <div class="card-name">
+      <h3>Rahul Verma</h3>
+      <div class="file">rahul_verma_resume.pdf &nbsp;·&nbsp; ra****@yahoo.com</div>
+    </div>
+
+    
+    <span class="recommendation-badge rec-fast">⚡ Fast Reject</span>
+    
+
+    <div class="total-score">
+      <div class="score-num
+        color-nohire">
+        2.3
+      </div>
+      <div class="score-label">/ 10.0</div>
+    </div>
+  </div>
+
+  
+
+  <!-- Metadata row -->
+  <div class="meta-row">
+    <span>⏱ 2865ms</span>
+    <span>💰 $0.00000</span>
+    <span>📊 BM25: 13%</span>
+    
+    <span>🔒 PII masked: 2 fields</span>
+  </div>
+
+  <!-- Fast path banner -->
+  
+  <div class="fast-banner">
+    ⚡ Fast-path screened — BM25 skill overlap 13% (below 15% threshold). LLM scoring skipped. Zero API cost for this candidate.
+  </div>
+  
+
+  <!-- Bias flag -->
+  
+
+  <!-- Override banner -->
+  
+
+</div>
+
+
+
+
+<div class="candidate-card">
+
+  <!-- Card header -->
+  <div class="card-header">
+    <div class="rank-badge ">#5</div>
+    <div class="card-name">
+      <h3>Malicious Actor</h3>
+      <div class="file">injection_test_resume.pdf &nbsp;·&nbsp; ma****@attacker.com</div>
+    </div>
+
+    
+    <span class="recommendation-badge rec-fast">⚡ Fast Reject</span>
+    
+
+    <div class="total-score">
+      <div class="score-num
+        color-nohire">
+        2.2
+      </div>
+      <div class="score-label">/ 10.0</div>
+    </div>
+  </div>
+
+  
+
+  <!-- Metadata row -->
+  <div class="meta-row">
+    <span>⏱ 2449ms</span>
+    <span>💰 $0.00000</span>
+    <span>📊 BM25: 7%</span>
+    
+    <span>🔒 PII masked: 1 fields</span>
+  </div>
+
+  <!-- Fast path banner -->
+  
+  <div class="fast-banner">
+    ⚡ Fast-path screened — BM25 skill overlap 7% (below 15% threshold). LLM scoring skipped. Zero API cost for this candidate.
+  </div>
+  
+
+  <!-- Bias flag -->
+  
+  <div class="bias-banner">
+    ⚠ Bias signal detected — Demographic signal detected — ensure blind evaluation. Please ensure blind evaluation before final decision.
+  </div>
+  
+
+  <!-- Override banner -->
+  
+
+</div>
+
+
+</div><!-- /content -->
+
+<div class="footer">
+  <span>HR Shortlisting Agent · Two-Path Architecture · Claude claude-sonnet-4</span>
+  <span>Report ID: RPT-052005e1 · 11 May 2026</span>
+</div>
+
+</body>
+</html>
