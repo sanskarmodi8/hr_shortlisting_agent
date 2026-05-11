@@ -277,7 +277,7 @@ Even though the LLM doesn't retain conversation history, sending raw PII to clou
 
 ---
 
-## Potential Extensions (Beyond Scope)
+## Potential Extensions
 - LinkedIn profile JSON ingestion (RapidAPI scraper)
 - LangSmith / Langfuse tracing for LLM observability
 - SQLite audit database for persistent override logs
@@ -285,5 +285,3 @@ Even though the LLM doesn't retain conversation history, sending raw PII to clou
 - Confidence-weighted re-scoring for low-confidence dimension scores
 
 ---
-
-*Built for the AI Enablement Internship assignment.*
