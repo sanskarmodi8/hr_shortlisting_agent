@@ -1,8 +1,8 @@
 # HR Shortlisting Agent 🎯
 
-> **AI Enablement Internship — Task 1 Submission**  
 > Two-path agentic architecture · Hybrid BM25 + Semantic Embeddings + LLM scoring · Production-grade security · Human-in-the-loop
 
+[Live App](https://hrshortlistingagent-sanskarmodi.streamlit.app/)
 ---
 
 ## Overview
